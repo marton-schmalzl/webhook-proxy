@@ -14,14 +14,15 @@
     "@types/amqplib": "^0.10.7",
     "@types/config": "^3.3.5",
     "@types/express": "^5.0.0",
+    "@types/express-serve-static-core": "^5.0.6",
     "@types/node": "^22.13.9",
-    "amqplib": "^0.10.5",
-    "axios": "^1.8.1",
-    "express": "^4.21.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "config": "^3.3.12"
+    "config": "^3.3.12",
+    "amqplib": "^0.10.5",
+    "axios": "^1.8.1",
+    "express": "^4.21.2"
   }
 }

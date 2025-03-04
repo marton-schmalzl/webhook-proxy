@@ -1,10 +1,13 @@
 import axios, { AxiosResponse } from 'axios';
 import { EndpointConfig } from './types/config';
 import loadConfig from './config';
+import { IncomingHttpHeaders } from 'http';
+import { Params } from 'express-serve-static-core';
+
 
 const config = loadConfig();
 
-const processWebhook = async (endpointKey: string, payload: any): Promise<any> => {
+const processWebhook = async (endpointKey: string, payload: any, incomingParams: Params, incomingHeaders: IncomingHttpHeaders): Promise<any> => {
   const endpoint: EndpointConfig | undefined = config.endpoints[endpointKey];
 
   if (!endpoint) {
@@ -17,6 +20,8 @@ const processWebhook = async (endpointKey: string, payload: any): Promise<any> =
       method: endpoint.method,
       url: endpoint.url,
       data: payload,
+      params: { ...incomingParams, }, // Forward request parameters
+      headers: { ...incomingHeaders }, // Forward headers
     });
     console.log(`Webhook ${endpointKey} processed successfully`);
     return response.data;

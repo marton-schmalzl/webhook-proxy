@@ -1,5 +1,6 @@
 import * as amqp from 'amqplib';
 import { Channel } from 'amqplib';
+import { Request } from 'express';
 
 const setupQueue = async (): Promise<Channel> => {
   const maxRetries: number = 10;
@@ -37,14 +38,13 @@ const consume = async (channel: Channel) => {
           const messageContent = msg.content.toString();
           console.log(`Received message: ${messageContent}`);
 
-          const message = JSON.parse(messageContent);
-          const { endpointKey, payload } = message;
+          const req: Request = JSON.parse(messageContent);
 
-          if (!endpointKey) {
-            throw new Error('endpointKey is required in message');
+          if (!req.params.endpoint) {
+          throw new Error('endpointKey is required in message');
           }
 
-          await processWebhook(endpointKey, payload);
+          await processWebhook(req.params.endpoint, req.body, req.params, req.headers);
           channel.ack(msg); // Acknowledge message after successful processing
         } catch (error: any) {
           console.warn(`Error processing message: ${error.message}`);

@@ -24,7 +24,7 @@ export const setupApp = (app: express.Express) => {
 
     try {
       if (endpoint.requiresResponse) {
-        const responseData = await processWebhook(endpointKey, req.body);
+        const responseData = await processWebhook(endpointKey, req.body, req.params, req.headers);
         res.status(200).json(responseData);
       } else {
         if (!queueChannel) {
@@ -32,7 +32,7 @@ export const setupApp = (app: express.Express) => {
           res.status(500).send('Queue channel not initialized');
           return;
         }
-        queueChannel.sendToQueue('webhook_queue', Buffer.from(JSON.stringify(req.body)));
+        queueChannel.sendToQueue('webhook_queue', Buffer.from(JSON.stringify(req)));
         res.status(202).send('Accepted for processing');
       }
     } catch (error: unknown) {
