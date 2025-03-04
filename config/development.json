@@ -1,0 +1,18 @@
+{
+  "appConfig": {
+    "endpoints": {
+      "endpoint1": {
+        "url": "http://localhost:8080/receive",
+        "method": "POST",
+        "requiresResponse": true
+      },
+      "endpoint2": {
+        "url": "http://localhost:8081/queue",
+        "method": "POST",
+        "requiresResponse": false
+      },
+      "retryMaxRetries": 3,
+      "retryDelay": 5000
+    }
+  }
+}
