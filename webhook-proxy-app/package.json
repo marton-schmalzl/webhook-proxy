@@ -20,9 +20,9 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "config": "^3.3.12",
     "amqplib": "^0.10.5",
     "axios": "^1.8.1",
+    "config": "^3.3.12",
     "express": "^4.21.2"
   }
 }
