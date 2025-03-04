@@ -13,6 +13,10 @@
       },
       "retryMaxRetries": 3,
       "retryDelay": 5000
+    },
+    "amqp": {
+      "url": "amqp://localhost",
+      "queueName": "webhook_queue"
     }
   }
 }

@@ -7,10 +7,16 @@ const setupQueue = async (): Promise<Channel> => {
   let retryCount: number = 0;
 
   while (retryCount < maxRetries) {
+    const config = loadConfig();
+    const amqpConfig = config.amqp;
+    const amqpUrl = amqpConfig.url;
+
+    const queueName = amqpConfig.queueName;
+
     try {
-      const connection = await amqp.connect('amqp://localhost');
+      const connection = await amqp.connect(amqpUrl);
       const channel: Channel = await connection.createChannel();
-      await channel.assertQueue('webhook_queue', { durable: false });
+      await channel.assertQueue(queueName, { durable: false });
       console.log('Connected to RabbitMQ');
       return channel;
     } catch (error: any) {
@@ -29,7 +35,7 @@ import processWebhook from './webhook';
 
 const consume = async (channel: Channel) => {
   const config = loadConfig();
-  const queueName = 'webhook_queue';
+  const queueName = config.amqp.queueName;
 
   try {
     channel.consume(queueName, async (msg) => {

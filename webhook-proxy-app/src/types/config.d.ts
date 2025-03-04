@@ -11,4 +11,10 @@ export interface Config {
   retryMaxRetries: number;
   retryDelay: number;
   port?: number;
+  amqp: AmqpConfig;
+}
+
+export interface AmqpConfig {
+  url: string;
+  queueName: string;
 }
