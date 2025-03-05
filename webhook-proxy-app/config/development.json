@@ -2,18 +2,18 @@
   "appConfig": {
     "endpoints": {
       "endpoint1": {
-        "url": "http://localhost:8080/receive",
+        "url": "http://localhost:3001/",
         "method": "POST",
         "requiresResponse": true
       },
       "endpoint2": {
-        "url": "http://localhost:8081/queue",
+        "url": "http://localhost:3001/",
         "method": "POST",
         "requiresResponse": false
-      },
-      "retryMaxRetries": 3,
-      "retryDelay": 5000
+      }
     },
+    "retryMaxRetries": 3,
+    "retryDelay": 5000,
     "amqp": {
       "url": "amqp://localhost",
       "queueName": "webhook_queue"

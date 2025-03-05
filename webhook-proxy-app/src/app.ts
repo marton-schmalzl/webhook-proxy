@@ -5,6 +5,7 @@ import { Channel } from 'amqplib';
 import loadConfig from './config';
 import { setupQueue, consume } from './queue';
 import processWebhook from './webhook';
+import { ProxyMessage } from './types/internal_message';
 
 const config = loadConfig();
 
@@ -32,7 +33,8 @@ export const setupApp = (app: express.Express) => {
           res.status(500).send('Queue channel not initialized');
           return;
         }
-        queueChannel.sendToQueue('webhook_queue', Buffer.from(JSON.stringify(req)));
+        const msg: ProxyMessage = {endpointKey, body: req.body, params: req.params, headers: req.headers};
+        queueChannel.sendToQueue('webhook_queue', Buffer.from(JSON.stringify(msg)));
         res.status(202).send('Accepted for processing');
       }
     } catch (error: unknown) {

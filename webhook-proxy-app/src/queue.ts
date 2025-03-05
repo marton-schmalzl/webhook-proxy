@@ -32,6 +32,7 @@ const setupQueue = async (): Promise<Channel> => {
 
 import loadConfig from './config';
 import processWebhook from './webhook';
+import { ProxyMessage } from './types/internal_message';
 
 const consume = async (channel: Channel) => {
   const config = loadConfig();
@@ -43,14 +44,13 @@ const consume = async (channel: Channel) => {
         try {
           const messageContent = msg.content.toString();
           console.log(`Received message: ${messageContent}`);
+          const req: ProxyMessage = JSON.parse(messageContent);
 
-          const req: Request = JSON.parse(messageContent);
-
-          if (!req.params.endpoint) {
-          throw new Error('endpointKey is required in message');
+          if (!req.endpointKey) {
+            throw new Error('endpointKey is required in message');
           }
 
-          await processWebhook(req.params.endpoint, req.body, req.params, req.headers);
+          await processWebhook(req.endpointKey, req.body, req.params, req.headers);
           channel.ack(msg); // Acknowledge message after successful processing
         } catch (error: any) {
           console.warn(`Error processing message: ${error.message}`);
