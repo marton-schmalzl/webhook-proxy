@@ -20,3 +20,11 @@ To set up the main project project, follow these steps:
 3.  Start the project: `npm run dev`
 
 To use the testing service, either run it directly with `npm install` and `npm start` or run it through docker with `docker-compose up -d`
+
+## Running load testing
+
+1. Make sure you have a working rabbit instance (`docker-compose up -d` in root folder)
+2. Make sure the application is running (`cd webhook-proxy-app` && `npm run dev`)
+3. Make sure the mock internal service is running (`cd testing-tools` && `docker-compose up -d`)
+4. Run the load test `echo "POST http://localhost:3000/endpoint2" | vegeta attack -duration=10s -rate=1000 --output results.bin`
+5. View the results with `vegeta report results.bin`
