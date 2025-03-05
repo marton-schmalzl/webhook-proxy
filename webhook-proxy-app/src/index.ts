@@ -1,6 +1,6 @@
 import express from 'express';
 import { setupApp, startQueue } from './app';
-import loadConfig from './config';
+import loadConfig from './utils/loadConfig';
 import logger from './utils/logger';
 
 const config = loadConfig();

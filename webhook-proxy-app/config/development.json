@@ -12,11 +12,12 @@
         "requiresResponse": false
       }
     },
-    "retryMaxRetries": 3,
+    "retryMaxRetries": 5,
     "retryDelay": 5000,
     "amqp": {
       "url": "amqp://localhost",
       "queueName": "webhook_queue"
-    }
+    },
+    "logLevel": "error"
   }
 }

@@ -12,6 +12,7 @@ export interface Config {
   retryDelay: number;
   port?: number;
   amqp: AmqpConfig;
+  logLevel: string;
 }
 
 export interface AmqpConfig {

@@ -30,7 +30,7 @@ const setupQueue = async (): Promise<Channel> => {
   process.exit(1);
 };
 
-import loadConfig from './config';
+import loadConfig from './utils/loadConfig';
 import processWebhook from './webhook';
 import { ProxyMessage } from './types/internal_message';
 import logger from './utils/logger';

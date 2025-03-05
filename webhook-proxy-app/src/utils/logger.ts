@@ -1,7 +1,9 @@
 import winston from 'winston';
+import loadConfig from './loadConfig';
+
 
 const logger = winston.createLogger({
-  level: 'info',
+  level: loadConfig().logLevel,
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()

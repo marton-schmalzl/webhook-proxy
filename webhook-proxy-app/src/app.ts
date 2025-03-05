@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 const amqp = require('amqplib');
 import { Channel } from 'amqplib';
 
-import loadConfig from './config';
+import loadConfig from './utils/loadConfig';
 import { setupQueue, consume } from './queue';
 import processWebhook from './webhook';
 import { ProxyMessage } from './types/internal_message';

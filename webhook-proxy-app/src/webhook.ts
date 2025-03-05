@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { EndpointConfig } from './types/config';
-import loadConfig from './config';
+import loadConfig from './utils/loadConfig';
 import { IncomingHttpHeaders } from 'http';
 import { Params } from 'express-serve-static-core';
 import logger from './utils/logger';
