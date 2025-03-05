@@ -6,6 +6,7 @@ import loadConfig from './config';
 import { setupQueue, consume } from './queue';
 import processWebhook from './webhook';
 import { ProxyMessage } from './types/internal_message';
+import logger from './utils/logger';
 
 const config = loadConfig();
 
@@ -29,7 +30,7 @@ export const setupApp = (app: express.Express) => {
         res.status(200).json(responseData);
       } else {
         if (!queueChannel) {
-          console.error('Queue channel not initialized');
+          logger.error('Queue channel not initialized');
           res.status(500).send('Queue channel not initialized');
           return;
         }
@@ -38,7 +39,7 @@ export const setupApp = (app: express.Express) => {
         res.status(202).send('Accepted for processing');
       }
     } catch (error: unknown) {
-      console.error(`Error processing ${endpointKey}:`, error);
+      logger.error(`Error processing ${endpointKey}:`, error);
       res.status(500).send('Internal Server Error');
     }
   });

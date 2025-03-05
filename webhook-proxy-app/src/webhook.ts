@@ -3,7 +3,7 @@ import { EndpointConfig } from './types/config';
 import loadConfig from './config';
 import { IncomingHttpHeaders } from 'http';
 import { Params } from 'express-serve-static-core';
-
+import logger from './utils/logger';
 
 const config = loadConfig();
 
@@ -11,7 +11,7 @@ const processWebhook = async (endpointKey: string, payload: any, incomingParams:
   const endpoint: EndpointConfig | undefined = config.endpoints[endpointKey];
 
   if (!endpoint) {
-    console.error(`Endpoint ${endpointKey} not found`);
+    logger.error(`Endpoint ${endpointKey} not found`);
     return;
   }
 
@@ -23,10 +23,10 @@ const processWebhook = async (endpointKey: string, payload: any, incomingParams:
       params: { ...incomingParams, }, // Forward request parameters
       headers: { ...incomingHeaders }, // Forward headers
     });
-    console.log(`Webhook ${endpointKey} processed successfully`);
+    logger.info(`Webhook ${endpointKey} processed successfully`);
     return response.data;
   } catch (error: any) {
-    console.warn(`Failed to process webhook ${endpointKey}:`, error.message);
+    logger.warn(`Failed to process webhook ${endpointKey}:`, error.message);
     throw error;
   }
 };
